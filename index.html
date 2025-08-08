@@ -1,354 +1,373 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SMIT Extreme Quiz — HTML + Tailwind + JS</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* small custom style for selected option */
-    .option-selected { box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SMIT Extreme Quiz — HTML + Tailwind + JS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* small custom style for selected option */
+        .option-selected {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
-  <div id="app" class="w-full max-w-5xl">
-    <div class="bg-white rounded-2xl shadow-lg p-6">
-      <h1 class="text-2xl md:text-3xl font-bold mb-2">SMIT — Extreme Preparation Quiz</h1>
-      <p class="text-sm text-gray-600 mb-6">Pure HTML · Tailwind CSS · Vanilla JavaScript — 5 topics × 11 extremely hard MCQs (55 total). No React needed.</p>
+    <div id="app" class="w-full max-w-5xl">
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2">SMIT — Extreme Preparation Quiz</h1>
+            <p class="text-sm text-gray-600 mb-6">Pure HTML · Tailwind CSS · Vanilla JavaScript — 5 topics × 11
+                extremely hard MCQs (55 total). No React needed.</p>
 
-      <!-- Topic selection -->
-      <div id="topics" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+            <!-- Topic selection -->
+            <div id="topics" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
 
-      <!-- Quiz area -->
-      <div id="quizArea" class="mt-4 hidden">
-        <div class="flex justify-between items-center mb-3">
-          <div class="text-sm text-gray-600">Topic: <strong id="topicTitle"></strong></div>
-          <div class="text-sm text-gray-600">Question <span id="qIndex">1</span> / <span id="qTotal">11</span></div>
-        </div>
+            <!-- Quiz area -->
+            <div id="quizArea" class="mt-4 hidden">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="text-sm text-gray-600">Topic: <strong id="topicTitle"></strong></div>
+                    <div class="text-sm text-gray-600">Question <span id="qIndex">1</span> / <span id="qTotal">11</span>
+                    </div>
+                </div>
 
-        <div class="p-4 border rounded-xl">
-          <div id="questionText" class="mb-4 text-lg md:text-xl font-medium"></div>
-          <div id="optionsList" class="grid gap-3"></div>
+                <div class="p-4 border rounded-xl">
+                    <div id="questionText" class="mb-4 text-lg md:text-xl font-medium"></div>
+                    <div id="optionsList" class="grid gap-3"></div>
 
-          <div class="flex justify-between mt-4">
-            <button id="prevBtn" class="px-4 py-2 rounded-md border">Previous</button>
-            <div class="flex gap-2">
-              <button id="clearBtn" class="px-3 py-2 border rounded-md">Clear</button>
-              <button id="nextBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md">Next</button>
+                    <div class="flex justify-between mt-4">
+                        <button id="prevBtn" class="px-4 py-2 rounded-md border">Previous</button>
+                        <div class="flex gap-2">
+                            <button id="clearBtn" class="px-3 py-2 border rounded-md">Clear</button>
+                            <button id="nextBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 text-sm text-gray-500">Answered: <span id="answeredCount">0</span> / <span
+                        id="qTotal2">11</span></div>
             </div>
-          </div>
+
+            <!-- Results area -->
+            <div id="resultsArea" class="mt-4 hidden">
+                <div class="p-4 border rounded-xl">
+                    <h2 class="text-xl font-semibold">Results — <span id="resultsTopic"></span></h2>
+                    <p class="mt-2">Score: <strong id="scoreVal">0</strong> / <span id="scoreTotal">11</span></p>
+
+                    <div id="resultsList" class="mt-4 space-y-3"></div>
+
+                    <div class="mt-4 flex gap-2">
+                        <button id="backBtn" class="px-4 py-2 border rounded-md">Back to topics</button>
+                        <button id="retryBtn" class="px-4 py-2 bg-yellow-500 rounded-md text-white">Retry Topic</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-xs text-gray-500">Drop this file to Netlify or open locally. Want randomization,
+                timer, CSV export, or an admin editor? Ask and I’ll add it.</div>
         </div>
-
-        <div class="mt-3 text-sm text-gray-500">Answered: <span id="answeredCount">0</span> / <span id="qTotal2">11</span></div>
-      </div>
-
-      <!-- Results area -->
-      <div id="resultsArea" class="mt-4 hidden">
-        <div class="p-4 border rounded-xl">
-          <h2 class="text-xl font-semibold">Results — <span id="resultsTopic"></span></h2>
-          <p class="mt-2">Score: <strong id="scoreVal">0</strong> / <span id="scoreTotal">11</span></p>
-
-          <div id="resultsList" class="mt-4 space-y-3"></div>
-
-          <div class="mt-4 flex gap-2">
-            <button id="backBtn" class="px-4 py-2 border rounded-md">Back to topics</button>
-            <button id="retryBtn" class="px-4 py-2 bg-yellow-500 rounded-md text-white">Retry Topic</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-6 text-xs text-gray-500">Drop this file to Netlify or open locally. Want randomization, timer, CSV export, or an admin editor? Ask and I’ll add it.</div>
     </div>
-  </div>
 
-<script>
-/* QUIZ DATA: 5 topics x 11 questions each (55 total) */
-const QUIZ_DATA = [
-  {
-    topic: 'General Knowledge',
-    id: 'gk',
-    questions: [
-      { id: 'gk1', q: 'Which treaty, signed in 1648, is widely considered to have established the modern system of sovereign states in Europe?', options: ['Treaty of Westphalia','Treaty of Utrecht','Treaty of Versailles','Treaty of Tordesillas'], answer: 0 },
-      { id: 'gk2', q: 'The Richter magnitude scale and the moment magnitude scale (Mw) differ most significantly in what way?', options: ['Mw is based on seismic moment and works for large quakes','Richter uses energy release measured by moment','Mw applies only to earthquakes before 1900','Richter is logarithmic while Mw is linear'], answer: 0 },
-      { id: 'gk3', q: 'Which civilisation built the city of Cahokia, noted for its large earthen mounds, near present-day St. Louis?', options: ['Mississippian culture','Ancestral Puebloans','Iroquoian Confederacy','Hopewell tradition'], answer: 0 },
-      { id: 'gk4', q: 'Which scientist proposed the concept of continental drift in 1912, prior to plate tectonic theory?', options: ['Alfred Wegener','Arthur Holmes','Harry Hess','Vine & Matthews'], answer: 0 },
-      { id: 'gk5', q: 'The Svalbard Global Seed Vault is located on which island and why is it placed there?', options: ['Spitsbergen — permafrost and political stability','Greenland — proximity to research stations','Iceland — geothermal stable temperatures','Falklands — isolation and low seismicity'], answer: 0 },
-      { id: 'gk6', q: 'Which economist introduced the idea of the "invisible hand" in market economies?', options: ['Adam Smith','David Ricardo','John Maynard Keynes','Thomas Malthus'], answer: 0 },
-      { id: 'gk7', q: 'Which international body was created by the 1947 General Agreement on Tariffs and Trade (GATT) successor in 1995?', options: ['World Trade Organization (WTO)','International Monetary Fund (IMF)','World Bank','United Nations Conference on Trade and Development (UNCTAD)'], answer: 0 },
-      { id: 'gk8', q: 'Which device, invented by Charles Babbage, is considered a direct mechanical precursor to modern programmable computers?', options: ['Analytical Engine','Difference Engine','Tabulating Machine','Jacquard Loom'], answer: 0 },
-      { id: 'gk9', q: 'Who wrote the 1859 work that transformed biology by proposing natural selection?', options: ['Charles Darwin','Alfred Russel Wallace','Gregor Mendel','Jean-Baptiste Lamarck'], answer: 0 },
-      { id: 'gk10', q: 'Which country’s legal system is the primary historical source of the common law tradition?', options: ['England','France','Germany','Spain'], answer: 0 },
-      { id: 'gk11', q: 'The Tethys Ocean existed between which two major landmasses in the Mesozoic?', options: ['Gondwana and Laurasia','Pangaea and Rodinia','Eurasia and Africa','North America and South America'], answer: 0 }
-    ]
-  },
-  {
-    topic: 'Islamiyat',
-    id: 'islamiyat',
-    questions: [
-      { id: 'is1', q: 'Which surah of the Qur\\'an is named after a battle that took place in the second year of Hijra and addresses rules on spoils of war and mutiny?', options: ['Al-Anfal','Al-Fath','At-Tawbah','Al-Imran'], answer: 0 },
-      { id: 'is2', q: 'Who was the last of the rightly-guided caliphs (Rashidun) according to Sunni tradition?', options: ['Ali ibn Abi Talib','Uthman ibn Affan','Muawiyah I','Abu Bakr Siddiq'], answer: 0 },
-      { id: 'is3', q: 'Which Islamic scholar compiled one of the earliest and most authoritative collections of hadith, Sahih al-Bukhari, in which century?', options: ['9th century CE','7th century CE','11th century CE','13th century CE'], answer: 0 },
-      { id: 'is4', q: 'In Quranic exegesis, the term "Asbab al-Nuzul" refers to what?', options: ['Circumstances/reasons of revelation','Legal rulings derived from a verse','Allegorical interpretations','Compilation order of surahs'], answer: 0 },
-      { id: 'is5', q: 'Which Arabic term refers to the prophetic biography and accounts of the Prophet Muhammad\\'s life?', options: ['Sira','Fiqh','Tafsir','Hadith'], answer: 0 },
-      { id: 'is6', q: 'Which Islamic school of jurisprudence (madhhab) is historically dominant in the Indian subcontinent and parts of the Ottoman Empire?', options: ['Hanafi','Maliki','Shafi\\'i','Hanbali'], answer: 0 },
-      { id: 'is7', q: 'Which night is believed to be better than a thousand months according to the Quran?', options: ['Laylat al-Qadr','Isra wa Miraj','Laylat al-Bara\\'ah','Laylat al-Raghaib'], answer: 0 },
-      { id: 'is8', q: 'In Islamic theology, which attribute of God is described by the Arabic term "Rahman"?', options: ['Most Merciful','All-Knowing','All-Powerful','Most Just'], answer: 0 },
-      { id: 'is9', q: 'The treaty that the Prophet Muhammad concluded with the people of Medina, establishing mutual rights and responsibilities, is commonly called what?', options: ['The Constitution of Medina','Treaty of Hudaybiyyah','Pact of Aqabah','Treaty of Hudaibiyyah'], answer: 0 },
-      { id: 'is10', q: 'Which companion is famous for narrating the most hadiths after the Prophet (according to most counts)?', options: ['Abu Hurairah','Aisha bint Abi Bakr','Anas ibn Malik','Abdullah ibn Abbas'], answer: 0 },
-      { id: 'is11', q: 'Which early Islamic caliphate moved its capital to Damascus and oversaw major expansion into North Africa and Central Asia?', options: ['Umayyad Caliphate','Abbasid Caliphate','Rashidun Caliphate','Fatimid Caliphate'], answer: 0 }
-    ]
-  },
-  {
-    topic: 'Mathematics',
-    id: 'math',
-    questions: [
-      { id: 'm1', q: 'Let f(x)=x^x for x>0. What is f\\'(x) in simplest form?', options: ['x^x(ln x + 1)','x^{x-1}(ln x + 1)','x^x(1/x + 1)','x^x ln x'], answer: 0 },
-      { id: 'm2', q: 'If the matrix A = [[2,1],[1,2]] has eigenvalues λ1 and λ2, what are they?', options: ['3 and 1','2 and 2','1 and -1','4 and 0'], answer: 0 },
-      { id: 'm3', q: 'Solve for x: 2^(2x) = 8^(x+1) / 2.', options: ['x = 1','x = 0','x = -1','x = 2'], answer: 0 },
-      { id: 'm4', q: 'A sequence a_n satisfies a_{n+2} = 6 a_{n+1} - 9 a_n. If a_0=2 and a_1=6, find a_2.', options: ['18','30','54','42'], answer: 0 },
-      { id: 'm5', q: 'What is the sum of the reciprocals of the triangular numbers: sum_{n=1}^∞ 1/(n(n+1)/2)?', options: ['2','1','3/2','4/3'], answer: 0 },
-      { id: 'm6', q: 'If z is a complex root of z^2 + 1 = 0, what is z^7?', options: ['-i','i','1','-1'], answer: 0 },
-      { id: 'm7', q: 'Find the area enclosed by one loop of the polar curve r = 2 sin(3θ).', options: ['π/6','π/3','π/12','π/2'], answer: 0 },
-      { id: 'm8', q: 'If the series sum_{n=1}^∞ (n!) / n^n converges or diverges?', options: ['Converges (by ratio/stirling comparison)','Diverges (terms don\\'t go to zero)','Diverges (p-test)','Converges conditionally but not absolutely'], answer: 0 },
-      { id: 'm9', q: 'What is the derivative of arctan(x) with respect to x?', options: ['1/(1+x^2)','1/(1-x^2)','arctan\\'(x)=1/x','1/(1+x)'], answer: 0 },
-      { id: 'm10', q: 'If p is a prime greater than 3, which of the following is always true about p^2 -1?', options: ['Divisible by 24','Divisible by 16','Prime','Divisible by 12 but not 24'], answer: 0 },
-      { id: 'm11', q: 'Solve for real x: ln(x) + ln(x-1) = 0.', options: ['x = (1+√5)/2','x = (1-√5)/2','x = 1','No real solution'], answer: 0 }
-    ]
-  },
-  {
-    topic: 'English',
-    id: 'english',
-    questions: [
-      { id: 'e1', q: 'Choose the option that best completes the sentence: "Had I known of the complication, I ______ to consult a specialist."', options: ['would have chosen','had chosen','will have chosen','would choose'], answer: 0 },
-      { id: 'e2', q: 'Identify the sentence with a correct use of the subjunctive mood.', options: ['It is essential that she be present at once.','She was that she be present at once.','She is essential that she is present.','It is essential that she was present.'], answer: 0 },
-      { id: 'e3', q: 'Which word is closest in meaning to "obfuscate"?', options: ['Confuse','Illuminate','Support','Predict'], answer: 0 },
-      { id: 'e4', q: 'Select the correctly punctuated sentence.', options: ['The committee — tired and divided — postponed the vote.','The committee, tired and divided postponed the vote.','The committee tired and divided — postponed the vote.','The committee tired, and divided postponed the vote.'], answer: 0 },
-      { id: 'e5', q: 'Choose the option that best paraphrases: "She deigned to help."', options: ['She reluctantly lowered herself to help.','She eagerly rushed to help.','She refused to help politely.','She was proud to offer help.'], answer: 0 },
-      { id: 'e6', q: 'Which word is an antonym of "laconic"?', options: ['Verbose','Terse','Succinct','Pithy'], answer: 0 },
-      { id: 'e7', q: 'Choose the correct relative pronoun: "The candidate, ______ resume I admired, failed to secure the post."', options: ['whose','whom','which','that'], answer: 0 },
-      { id: 'e8', q: 'Which sentence demonstrates parallel structure?', options: ['She likes reading, jogging, and to swim.','She likes to read, jog, and swim.','She likes reading, to jog, and swimming.','She likes read, jogging, and to swim.'], answer: 1 },
-      { id: 'e9', q: 'Identify the passive voice version of: "They will finish the project by Friday."', options: ['The project will be finished by Friday.','The project will finish by Friday.','The project is finished by Friday.','By Friday, the project will finish.'], answer: 0 },
-      { id: 'e10', q: 'Pick the best word to complete the analogy: "Harangue is to praise as lambaste is to ______."', options: ['criticize','applaud','ignore','observe'], answer: 1 },
-      { id: 'e11', q: 'Which sentence contains a correct idiomatic expression?', options: ['He kicked the bucket last year (meaning: died).','He kicked the habit last year (meaning: died).','He kicked the ball last year (idiom for quitting).','He kicked the habit last year (meaning: started a habit).'], answer: 0 }
-    ]
-  },
-  {
-    topic: 'IQ (Computer)',
-    id: 'iq',
-    questions: [
-      { id: 'iq1', q: 'Which data structure guarantees O(1) average-time complexity for insertion, deletion, and lookup (amortized), assuming a good hash function?', options: ['Hash table','Binary search tree','Linked list','Heap'], answer: 0 },
-      { id: 'iq2', q: 'In a directed acyclic graph (DAG), the algorithm to order vertices so that for every directed edge u→v, u comes before v is called what?', options: ['Topological sort','Dijkstra\\'s algorithm','Kruskal\\'s algorithm','Bellman-Ford algorithm'], answer: 0 },
-      { id: 'iq3', q: 'Which complexity class contains decision problems for which a given solution can be verified in polynomial time?', options: ['NP','P','PSPACE','EXP'], answer: 0 },
-      { id: 'iq4', q: 'Which sorting algorithm has worst-case O(n log n) time and is typically implemented with divide-and-conquer but requires careful pivot selection?', options: ['Merge sort','Quick sort (with median-of-three)','Heap sort','Bubble sort'], answer: 1 },
-      { id: 'iq5', q: 'Which of the following best describes a red-black tree?', options: ['A self-balancing binary search tree with color properties ensuring height is O(log n)','An unbalanced BST optimized for insertions','A heap variant using two colors','A B-tree specialized for disk storage'], answer: 0 },
-      { id: 'iq6', q: 'If a program has time complexity O(n^2) and you double the input size n, roughly how many times longer will it take?', options: ['About 4 times','About 2 times','About same','About 8 times'], answer: 0 },
-      { id: 'iq7', q: 'Which logic gate is functionally complete (i.e., alone can be used to implement any Boolean function)?', options: ['NAND','AND','OR','XOR'], answer: 0 },
-      { id: 'iq8', q: 'In relational databases, normal form that removes transitive dependencies and requires that non-key attributes are dependent only on the primary key is called?', options: ['Third Normal Form (3NF)','First Normal Form (1NF)','Boyce-Codd Normal Form (BCNF)','Second Normal Form (2NF)'], answer: 0 },
-      { id: 'iq9', q: 'Which protocol is connectionless and operates on top of IP, often used for streaming and DNS?', options: ['UDP','TCP','HTTP','FTP'], answer: 0 },
-      { id: 'iq10', q: 'Which model divides computer architecture into five functional components: input, output, memory, control unit, and arithmetic logic unit?', options: ['Von Neumann architecture','Harvard architecture','Turing machine model','Godel architecture'], answer: 0 },
-      { id: 'iq11', q: 'Which of the following describes the halting problem?', options: ['An undecidable problem — no algorithm can determine for all programs whether they halt','A problem solvable in polynomial time','A problem solvable only by quantum computers','A practical debugging tool for compilers'], answer: 0 }
-    ]
-  }
-];
+    <script>
+        /* QUIZ DATA: 5 topics x 11 questions each (55 total) */
+        document.addEventListener("DOMContentLoaded", function() {
+  // quiz code here
+});
 
-/* Application state */
-let state = {
-  topicIndex: null,
-  current: 0,
-  answers: {}, // { qid: selectedIndex }
-  showResults: false
-};
+        const QUIZ_DATA = [
+            {
+                topic: 'General Knowledge',
+                id: 'gk',
+                questions: [
+                    { id: 'gk1', q: 'Which treaty, signed in 1648, is widely considered to have established the modern system of sovereign states in Europe?', options: ['Treaty of Westphalia', 'Treaty of Utrecht', 'Treaty of Versailles', 'Treaty of Tordesillas'], answer: 0 },
+                    { id: 'gk2', q: 'The Richter magnitude scale and the moment magnitude scale (Mw) differ most significantly in what way?', options: ['Mw is based on seismic moment and works for large quakes', 'Richter uses energy release measured by moment', 'Mw applies only to earthquakes before 1900', 'Richter is logarithmic while Mw is linear'], answer: 0 },
+                    { id: 'gk3', q: 'Which civilisation built the city of Cahokia, noted for its large earthen mounds, near present-day St. Louis?', options: ['Mississippian culture', 'Ancestral Puebloans', 'Iroquoian Confederacy', 'Hopewell tradition'], answer: 0 },
+                    { id: 'gk4', q: 'Which scientist proposed the concept of continental drift in 1912, prior to plate tectonic theory?', options: ['Alfred Wegener', 'Arthur Holmes', 'Harry Hess', 'Vine & Matthews'], answer: 0 },
+                    { id: 'gk5', q: 'The Svalbard Global Seed Vault is located on which island and why is it placed there?', options: ['Spitsbergen — permafrost and political stability', 'Greenland — proximity to research stations', 'Iceland — geothermal stable temperatures', 'Falklands — isolation and low seismicity'], answer: 0 },
+                    { id: 'gk6', q: 'Which economist introduced the idea of the "invisible hand" in market economies?', options: ['Adam Smith', 'David Ricardo', 'John Maynard Keynes', 'Thomas Malthus'], answer: 0 },
+                    { id: 'gk7', q: 'Which international body was created by the 1947 General Agreement on Tariffs and Trade (GATT) successor in 1995?', options: ['World Trade Organization (WTO)', 'International Monetary Fund (IMF)', 'World Bank', 'United Nations Conference on Trade and Development (UNCTAD)'], answer: 0 },
+                    { id: 'gk8', q: 'Which device, invented by Charles Babbage, is considered a direct mechanical precursor to modern programmable computers?', options: ['Analytical Engine', 'Difference Engine', 'Tabulating Machine', 'Jacquard Loom'], answer: 0 },
+                    { id: 'gk9', q: 'Who wrote the 1859 work that transformed biology by proposing natural selection?', options: ['Charles Darwin', 'Alfred Russel Wallace', 'Gregor Mendel', 'Jean-Baptiste Lamarck'], answer: 0 },
+                    { id: 'gk10', q: 'Which country’s legal system is the primary historical source of the common law tradition?', options: ['England', 'France', 'Germany', 'Spain'], answer: 0 },
+                    { id: 'gk11', q: 'The Tethys Ocean existed between which two major landmasses in the Mesozoic?', options: ['Gondwana and Laurasia', 'Pangaea and Rodinia', 'Eurasia and Africa', 'North America and South America'], answer: 0 }
+                ]
+            },
+            {
+                topic: 'Islamiyat',
+                id: 'islamiyat',
+                questions: [
+                    {
+                        id: 'is1', q: 'Which surah of the Qur\\'an is named after a battle that took place in the second year of Hijra and addresses rules on spoils of war and mutiny?', options: ['Al - Anfal','Al - Fath','At - Tawbah','Al - Imran'], answer: 0 },
+      { id: 'is2', q: 'Who was the last of the rightly-guided caliphs (Rashidun) according to Sunni tradition?', options: ['Ali ibn Abi Talib', 'Uthman ibn Affan', 'Muawiyah I', 'Abu Bakr Siddiq'], answer: 0 },
+      { id: 'is3', q: 'Which Islamic scholar compiled one of the earliest and most authoritative collections of hadith, Sahih al-Bukhari, in which century?', options: ['9th century CE', '7th century CE', '11th century CE', '13th century CE'], answer: 0 },
+                    { id: 'is4', q: 'In Quranic exegesis, the term "Asbab al-Nuzul" refers to what?', options: ['Circumstances/reasons of revelation', 'Legal rulings derived from a verse', 'Allegorical interpretations', 'Compilation order of surahs'], answer: 0 },
+                    {
+                        id: 'is5', q: 'Which Arabic term refers to the prophetic biography and accounts of the Prophet Muhammad\\'s life?', options: ['Sira','Fiqh','Tafsir','Hadith'], answer: 0 },
+      {
+                                id: 'is6', q: 'Which Islamic school of jurisprudence (madhhab) is historically dominant in the Indian subcontinent and parts of the Ottoman Empire?', options: ['Hanafi', 'Maliki', 'Shafi\\'i','Hanbali'], answer: 0 },
+      {
+                                        id: 'is7', q: 'Which night is believed to be better than a thousand months according to the Quran?', options: ['Laylat al-Qadr', 'Isra wa Miraj', 'Laylat al-Bara\\'ah','Laylat al - Raghaib'], answer: 0 },
+      { id: 'is8', q: 'In Islamic theology, which attribute of God is described by the Arabic term "Rahman"?', options: ['Most Merciful', 'All-Knowing', 'All-Powerful', 'Most Just'], answer: 0 },
+                                            { id: 'is9', q: 'The treaty that the Prophet Muhammad concluded with the people of Medina, establishing mutual rights and responsibilities, is commonly called what?', options: ['The Constitution of Medina', 'Treaty of Hudaybiyyah', 'Pact of Aqabah', 'Treaty of Hudaibiyyah'], answer: 0 },
+                                            { id: 'is10', q: 'Which companion is famous for narrating the most hadiths after the Prophet (according to most counts)?', options: ['Abu Hurairah', 'Aisha bint Abi Bakr', 'Anas ibn Malik', 'Abdullah ibn Abbas'], answer: 0 },
+                                            { id: 'is11', q: 'Which early Islamic caliphate moved its capital to Damascus and oversaw major expansion into North Africa and Central Asia?', options: ['Umayyad Caliphate', 'Abbasid Caliphate', 'Rashidun Caliphate', 'Fatimid Caliphate'], answer: 0 }
+                                        ]
+                                    },
+                                    {
+                                        topic: 'Mathematics',
+                                        id: 'math',
+                                        questions: [
+                                            { id: 'm1', q: 'Let f(x)=x^x for x>0. What is f\\'(x) in simplest form?', options: ['x ^ x(ln x + 1)','x ^ { x- 1 }(ln x + 1)','x ^ x(1 / x + 1)','x ^ x ln x'], answer: 0 },
+      { id: 'm2', q: 'If the matrix A = [[2,1],[1,2]] has eigenvalues λ1 and λ2, what are they?', options: ['3 and 1', '2 and 2', '1 and -1', '4 and 0'], answer: 0 },
+                                            { id: 'm3', q: 'Solve for x: 2^(2x) = 8^(x+1) / 2.', options: ['x = 1', 'x = 0', 'x = -1', 'x = 2'], answer: 0 },
+                                            { id: 'm4', q: 'A sequence a_n satisfies a_{n+2} = 6 a_{n+1} - 9 a_n. If a_0=2 and a_1=6, find a_2.', options: ['18', '30', '54', '42'], answer: 0 },
+                                            { id: 'm5', q: 'What is the sum of the reciprocals of the triangular numbers: sum_{n=1}^∞ 1/(n(n+1)/2)?', options: ['2', '1', '3/2', '4/3'], answer: 0 },
+                                            { id: 'm6', q: 'If z is a complex root of z^2 + 1 = 0, what is z^7?', options: ['-i', 'i', '1', '-1'], answer: 0 },
+                                            { id: 'm7', q: 'Find the area enclosed by one loop of the polar curve r = 2 sin(3θ).', options: ['π/6', 'π/3', 'π/12', 'π/2'], answer: 0 },
+                                            {
+                                                id: 'm8', q: 'If the series sum_{n=1}^∞ (n!) / n^n converges or diverges?', options: ['Converges (by ratio/stirling comparison)', 'Diverges (terms don\\'t go to zero) ','Diverges(p - test)','Converges conditionally but not absolutely'], answer: 0 },
+      {
+                                                        id: 'm9', q: 'What is the derivative of arctan(x) with respect to x?', options: ['1/(1+x^2)', '1/(1-x^2)', 'arctan\\'(x) = 1 / x','1 / (1 + x)'], answer: 0 },
+      { id: 'm10', q: 'If p is a prime greater than 3, which of the following is always true about p^2 -1?', options: ['Divisible by 24', 'Divisible by 16', 'Prime', 'Divisible by 12 but not 24'], answer: 0 },
+                                                            { id: 'm11', q: 'Solve for real x: ln(x) + ln(x-1) = 0.', options: ['x = (1+√5)/2', 'x = (1-√5)/2', 'x = 1', 'No real solution'], answer: 0 }
+                                                        ]
+                                                    },
+                                                    {
+                                                        topic: 'English',
+                                                        id: 'english',
+                                                        questions: [
+                                                            { id: 'e1', q: 'Choose the option that best completes the sentence: "Had I known of the complication, I ______ to consult a specialist."', options: ['would have chosen', 'had chosen', 'will have chosen', 'would choose'], answer: 0 },
+                                                            { id: 'e2', q: 'Identify the sentence with a correct use of the subjunctive mood.', options: ['It is essential that she be present at once.', 'She was that she be present at once.', 'She is essential that she is present.', 'It is essential that she was present.'], answer: 0 },
+                                                            { id: 'e3', q: 'Which word is closest in meaning to "obfuscate"?', options: ['Confuse', 'Illuminate', 'Support', 'Predict'], answer: 0 },
+                                                            { id: 'e4', q: 'Select the correctly punctuated sentence.', options: ['The committee — tired and divided — postponed the vote.', 'The committee, tired and divided postponed the vote.', 'The committee tired and divided — postponed the vote.', 'The committee tired, and divided postponed the vote.'], answer: 0 },
+                                                            { id: 'e5', q: 'Choose the option that best paraphrases: "She deigned to help."', options: ['She reluctantly lowered herself to help.', 'She eagerly rushed to help.', 'She refused to help politely.', 'She was proud to offer help.'], answer: 0 },
+                                                            { id: 'e6', q: 'Which word is an antonym of "laconic"?', options: ['Verbose', 'Terse', 'Succinct', 'Pithy'], answer: 0 },
+                                                            { id: 'e7', q: 'Choose the correct relative pronoun: "The candidate, ______ resume I admired, failed to secure the post."', options: ['whose', 'whom', 'which', 'that'], answer: 0 },
+                                                            { id: 'e8', q: 'Which sentence demonstrates parallel structure?', options: ['She likes reading, jogging, and to swim.', 'She likes to read, jog, and swim.', 'She likes reading, to jog, and swimming.', 'She likes read, jogging, and to swim.'], answer: 1 },
+                                                            { id: 'e9', q: 'Identify the passive voice version of: "They will finish the project by Friday."', options: ['The project will be finished by Friday.', 'The project will finish by Friday.', 'The project is finished by Friday.', 'By Friday, the project will finish.'], answer: 0 },
+                                                            { id: 'e10', q: 'Pick the best word to complete the analogy: "Harangue is to praise as lambaste is to ______."', options: ['criticize', 'applaud', 'ignore', 'observe'], answer: 1 },
+                                                            { id: 'e11', q: 'Which sentence contains a correct idiomatic expression?', options: ['He kicked the bucket last year (meaning: died).', 'He kicked the habit last year (meaning: died).', 'He kicked the ball last year (idiom for quitting).', 'He kicked the habit last year (meaning: started a habit).'], answer: 0 }
+                                                        ]
+                                                    },
+                                                    {
+                                                        topic: 'IQ (Computer)',
+                                                        id: 'iq',
+                                                        questions: [
+                                                            { id: 'iq1', q: 'Which data structure guarantees O(1) average-time complexity for insertion, deletion, and lookup (amortized), assuming a good hash function?', options: ['Hash table', 'Binary search tree', 'Linked list', 'Heap'], answer: 0 },
+                                                            { id: 'iq2', q: 'In a directed acyclic graph (DAG), the algorithm to order vertices so that for every directed edge u→v, u comes before v is called what?', options: ['Topological sort', 'Dijkstra\\'s algorithm','Kruskal\\'s algorithm', 'Bellman-Ford algorithm'], answer: 0 },
+                                                            { id: 'iq3', q: 'Which complexity class contains decision problems for which a given solution can be verified in polynomial time?', options: ['NP', 'P', 'PSPACE', 'EXP'], answer: 0 },
+                                                            { id: 'iq4', q: 'Which sorting algorithm has worst-case O(n log n) time and is typically implemented with divide-and-conquer but requires careful pivot selection?', options: ['Merge sort', 'Quick sort (with median-of-three)', 'Heap sort', 'Bubble sort'], answer: 1 },
+                                                            { id: 'iq5', q: 'Which of the following best describes a red-black tree?', options: ['A self-balancing binary search tree with color properties ensuring height is O(log n)', 'An unbalanced BST optimized for insertions', 'A heap variant using two colors', 'A B-tree specialized for disk storage'], answer: 0 },
+                                                            { id: 'iq6', q: 'If a program has time complexity O(n^2) and you double the input size n, roughly how many times longer will it take?', options: ['About 4 times', 'About 2 times', 'About same', 'About 8 times'], answer: 0 },
+                                                            { id: 'iq7', q: 'Which logic gate is functionally complete (i.e., alone can be used to implement any Boolean function)?', options: ['NAND', 'AND', 'OR', 'XOR'], answer: 0 },
+                                                            { id: 'iq8', q: 'In relational databases, normal form that removes transitive dependencies and requires that non-key attributes are dependent only on the primary key is called?', options: ['Third Normal Form (3NF)', 'First Normal Form (1NF)', 'Boyce-Codd Normal Form (BCNF)', 'Second Normal Form (2NF)'], answer: 0 },
+                                                            { id: 'iq9', q: 'Which protocol is connectionless and operates on top of IP, often used for streaming and DNS?', options: ['UDP', 'TCP', 'HTTP', 'FTP'], answer: 0 },
+                                                            { id: 'iq10', q: 'Which model divides computer architecture into five functional components: input, output, memory, control unit, and arithmetic logic unit?', options: ['Von Neumann architecture', 'Harvard architecture', 'Turing machine model', 'Godel architecture'], answer: 0 },
+                                                            { id: 'iq11', q: 'Which of the following describes the halting problem?', options: ['An undecidable problem — no algorithm can determine for all programs whether they halt', 'A problem solvable in polynomial time', 'A problem solvable only by quantum computers', 'A practical debugging tool for compilers'], answer: 0 }
+                                                        ]
+                                                    }
+                                                ];
 
-/* DOM refs */
-const topicsEl = document.getElementById('topics');
-const quizArea = document.getElementById('quizArea');
-const topicTitle = document.getElementById('topicTitle');
-const qIndexEl = document.getElementById('qIndex');
-const qTotalEl = document.getElementById('qTotal');
-const qTotalEl2 = document.getElementById('qTotal2');
-const questionText = document.getElementById('questionText');
-const optionsList = document.getElementById('optionsList');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const clearBtn = document.getElementById('clearBtn');
-const answeredCountEl = document.getElementById('answeredCount');
+                                                /* Application state */
+                                                let state = {
+                                                    topicIndex: null,
+                                                    current: 0,
+                                                    answers: {}, // { qid: selectedIndex }
+                                                    showResults: false
+                                                };
 
-const resultsArea = document.getElementById('resultsArea');
-const resultsTopic = document.getElementById('resultsTopic');
-const resultsList = document.getElementById('resultsList');
-const scoreVal = document.getElementById('scoreVal');
-const scoreTotal = document.getElementById('scoreTotal');
-const backBtn = document.getElementById('backBtn');
-const retryBtn = document.getElementById('retryBtn');
+                                                /* DOM refs */
+                                                const topicsEl = document.getElementById('topics');
+                                                const quizArea = document.getElementById('quizArea');
+                                                const topicTitle = document.getElementById('topicTitle');
+                                                const qIndexEl = document.getElementById('qIndex');
+                                                const qTotalEl = document.getElementById('qTotal');
+                                                const qTotalEl2 = document.getElementById('qTotal2');
+                                                const questionText = document.getElementById('questionText');
+                                                const optionsList = document.getElementById('optionsList');
+                                                const prevBtn = document.getElementById('prevBtn');
+                                                const nextBtn = document.getElementById('nextBtn');
+                                                const clearBtn = document.getElementById('clearBtn');
+                                                const answeredCountEl = document.getElementById('answeredCount');
 
-/* Helpers */
-function renderTopics(){
-  topicsEl.innerHTML = '';
-  QUIZ_DATA.forEach((t, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'p-4 border rounded-xl text-left hover:shadow-md transition';
-    btn.innerHTML = `<div class="text-lg font-semibold">${t.topic}</div><div class="text-sm text-gray-600">${t.questions.length} questions — extreme</div>`;
-    btn.addEventListener('click', () => startTopic(i));
-    topicsEl.appendChild(btn);
-  });
-}
+                                                const resultsArea = document.getElementById('resultsArea');
+                                                const resultsTopic = document.getElementById('resultsTopic');
+                                                const resultsList = document.getElementById('resultsList');
+                                                const scoreVal = document.getElementById('scoreVal');
+                                                const scoreTotal = document.getElementById('scoreTotal');
+                                                const backBtn = document.getElementById('backBtn');
+                                                const retryBtn = document.getElementById('retryBtn');
+
+                                                /* Helpers */
+                                                function renderTopics(){
+                                                topicsEl.innerHTML = '';
+                                                QUIZ_DATA.forEach((t, i) => {
+                                                    const btn = document.createElement('button');
+                                                    btn.className = 'p-4 border rounded-xl text-left hover:shadow-md transition';
+                                                    btn.innerHTML = `<div class="text-lg font-semibold">${t.topic}</div><div class="text-sm text-gray-600">${t.questions.length} questions — extreme</div>`;
+                                                    btn.addEventListener('click', () => startTopic(i));
+                                                    topicsEl.appendChild(btn);
+                                                });
+                                            }
 
 /* Start a topic */
-function startTopic(i){
-  state.topicIndex = i;
-  state.current = 0;
-  state.answers = {};
-  state.showResults = false;
-  topicsEl.classList.add('hidden');
-  resultsArea.classList.add('hidden');
-  quizArea.classList.remove('hidden');
-  renderQuestion();
-  updateAnsweredCount();
-}
+function startTopic(i) {
+                                                state.topicIndex = i;
+                                                state.current = 0;
+                                                state.answers = {};
+                                                state.showResults = false;
+                                                topicsEl.classList.add('hidden');
+                                                resultsArea.classList.add('hidden');
+                                                quizArea.classList.remove('hidden');
+                                                renderQuestion();
+                                                updateAnsweredCount();
+                                            }
 
 /* Render current question */
-function renderQuestion(){
-  const topic = QUIZ_DATA[state.topicIndex];
-  if(!topic) return;
-  const qTotal = topic.questions.length;
-  const qObj = topic.questions[state.current];
-  topicTitle.textContent = topic.topic;
-  qIndexEl.textContent = state.current + 1;
-  qTotalEl.textContent = qTotal;
-  qTotalEl2.textContent = qTotal;
-  questionText.textContent = qObj.q;
+function renderQuestion() {
+                                                const topic = QUIZ_DATA[state.topicIndex];
+                                                if (!topic) return;
+                                                const qTotal = topic.questions.length;
+                                                const qObj = topic.questions[state.current];
+                                                topicTitle.textContent = topic.topic;
+                                                qIndexEl.textContent = state.current + 1;
+                                                qTotalEl.textContent = qTotal;
+                                                qTotalEl2.textContent = qTotal;
+                                                questionText.textContent = qObj.q;
 
-  // options
-  optionsList.innerHTML = '';
-  qObj.options.forEach((opt, idx) => {
-    const optBtn = document.createElement('button');
-    optBtn.type = 'button';
-    const qid = qObj.id;
-    const selected = state.answers[qid] === idx;
-    optBtn.className = `p-3 text-left rounded-lg border flex items-center gap-3 w-full ${selected? 'bg-blue-50 border-blue-300 option-selected' : 'hover:bg-gray-50'}`;
-    optBtn.innerHTML = `<div class="w-6 font-mono">${String.fromCharCode(65+idx)}</div><div class="flex-1">${opt}</div>`;
-    optBtn.addEventListener('click', () => {
-      state.answers[qid] = idx;
-      renderQuestion(); // re-render to update selection UI
-      updateAnsweredCount();
-    });
-    optionsList.appendChild(optBtn);
-  });
+                                                // options
+                                                optionsList.innerHTML = '';
+                                                qObj.options.forEach((opt, idx) => {
+                                                    const optBtn = document.createElement('button');
+                                                    optBtn.type = 'button';
+                                                    const qid = qObj.id;
+                                                    const selected = state.answers[qid] === idx;
+                                                    optBtn.className = `p-3 text-left rounded-lg border flex items-center gap-3 w-full ${selected ? 'bg-blue-50 border-blue-300 option-selected' : 'hover:bg-gray-50'}`;
+                                                    optBtn.innerHTML = `<div class="w-6 font-mono">${String.fromCharCode(65 + idx)}</div><div class="flex-1">${opt}</div>`;
+                                                    optBtn.addEventListener('click', () => {
+                                                        state.answers[qid] = idx;
+                                                        renderQuestion(); // re-render to update selection UI
+                                                        updateAnsweredCount();
+                                                    });
+                                                    optionsList.appendChild(optBtn);
+                                                });
 
-  // buttons text
-  prevBtn.disabled = state.current === 0;
-  nextBtn.textContent = state.current < qTotal - 1 ? 'Next' : 'Finish';
-}
+                                                // buttons text
+                                                prevBtn.disabled = state.current === 0;
+                                                nextBtn.textContent = state.current < qTotal - 1 ? 'Next' : 'Finish';
+                                            }
 
 /* Navigation */
 prevBtn.addEventListener('click', () => {
-  if(state.current > 0){
-    state.current -= 1;
-    renderQuestion();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-});
-nextBtn.addEventListener('click', () => {
-  const topic = QUIZ_DATA[state.topicIndex];
-  if(state.current < topic.questions.length - 1){
-    state.current += 1;
-    renderQuestion();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    showResults();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-});
-clearBtn.addEventListener('click', () => {
-  const topic = QUIZ_DATA[state.topicIndex];
-  const qid = topic.questions[state.current].id;
-  delete state.answers[qid];
-  renderQuestion();
-  updateAnsweredCount();
-});
+                                                if (state.current > 0) {
+                                                    state.current -= 1;
+                                                    renderQuestion();
+                                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                                }
+                                            });
+                                        nextBtn.addEventListener('click', () => {
+                                            const topic = QUIZ_DATA[state.topicIndex];
+                                            if (state.current < topic.questions.length - 1) {
+                                                state.current += 1;
+                                                renderQuestion();
+                                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            } else {
+                                                showResults();
+                                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            }
+                                        });
+                                        clearBtn.addEventListener('click', () => {
+                                            const topic = QUIZ_DATA[state.topicIndex];
+                                            const qid = topic.questions[state.current].id;
+                                            delete state.answers[qid];
+                                            renderQuestion();
+                                            updateAnsweredCount();
+                                        });
 
-/* Update answered count */
-function updateAnsweredCount(){
-  const topic = QUIZ_DATA[state.topicIndex];
-  if(!topic) {
-    answeredCountEl.textContent = '0';
-    return;
-  }
+                                        /* Update answered count */
+                                        function updateAnsweredCount(){
+                                        const topic = QUIZ_DATA[state.topicIndex];
+                                        if(!topic) {
+                                            answeredCountEl.textContent = '0';
+                                            return;
+                                        }
   const answered = Object.keys(state.answers).filter(k => state.answers[k] !== undefined && state.answers[k] !== null).length;
-  answeredCountEl.textContent = answered;
-}
+                                        answeredCountEl.textContent = answered;
+                                    }
 
 /* Show results */
-function showResults(){
-  const topic = QUIZ_DATA[state.topicIndex];
-  if(!topic) return;
-  quizArea.classList.add('hidden');
-  resultsArea.classList.remove('hidden');
-  resultsTopic.textContent = topic.topic;
-  resultsList.innerHTML = '';
-  let score = 0;
-  topic.questions.forEach((q, idx) => {
-    const user = state.answers[q.id];
-    const correct = q.answer;
-    if(user === correct) score++;
-    const block = document.createElement('div');
-    block.className = 'p-3 border rounded-md';
-    const qHtml = document.createElement('div');
-    qHtml.className = 'font-medium';
-    qHtml.textContent = `${idx + 1}. ${q.q}`;
-    block.appendChild(qHtml);
+function showResults() {
+                                        const topic = QUIZ_DATA[state.topicIndex];
+                                        if (!topic) return;
+                                        quizArea.classList.add('hidden');
+                                        resultsArea.classList.remove('hidden');
+                                        resultsTopic.textContent = topic.topic;
+                                        resultsList.innerHTML = '';
+                                        let score = 0;
+                                        topic.questions.forEach((q, idx) => {
+                                            const user = state.answers[q.id];
+                                            const correct = q.answer;
+                                            if (user === correct) score++;
+                                            const block = document.createElement('div');
+                                            block.className = 'p-3 border rounded-md';
+                                            const qHtml = document.createElement('div');
+                                            qHtml.className = 'font-medium';
+                                            qHtml.textContent = `${idx + 1}. ${q.q}`;
+                                            block.appendChild(qHtml);
 
-    const optionsWrap = document.createElement('div');
-    optionsWrap.className = 'mt-2 grid grid-cols-1 md:grid-cols-2 gap-2';
-    q.options.forEach((opt, i) => {
-      const optDiv = document.createElement('div');
-      let classes = 'p-2 rounded ';
-      if(i === correct) classes += 'bg-green-50 border border-green-200';
-      if(i === user && i !== correct) classes += ' bg-red-50 border border-red-200';
-      optDiv.className = classes;
-      optDiv.innerHTML = `<div class="flex items-center gap-3"><div class="w-6 font-mono">${String.fromCharCode(65+i)}</div><div>${opt}</div></div>`;
-      optionsWrap.appendChild(optDiv);
-    });
-    block.appendChild(optionsWrap);
+                                            const optionsWrap = document.createElement('div');
+                                            optionsWrap.className = 'mt-2 grid grid-cols-1 md:grid-cols-2 gap-2';
+                                            q.options.forEach((opt, i) => {
+                                                const optDiv = document.createElement('div');
+                                                let classes = 'p-2 rounded ';
+                                                if (i === correct) classes += 'bg-green-50 border border-green-200';
+                                                if (i === user && i !== correct) classes += ' bg-red-50 border border-red-200';
+                                                optDiv.className = classes;
+                                                optDiv.innerHTML = `<div class="flex items-center gap-3"><div class="w-6 font-mono">${String.fromCharCode(65 + i)}</div><div>${opt}</div></div>`;
+                                                optionsWrap.appendChild(optDiv);
+                                            });
+                                            block.appendChild(optionsWrap);
 
-    const foot = document.createElement('div');
-    foot.className = 'mt-2 text-sm text-gray-600';
-    foot.textContent = `Your answer: ${user===undefined || user===null ? '—' : String.fromCharCode(65+user)} • Correct: ${String.fromCharCode(65+correct)}`;
-    block.appendChild(foot);
+                                            const foot = document.createElement('div');
+                                            foot.className = 'mt-2 text-sm text-gray-600';
+                                            foot.textContent = `Your answer: ${user === undefined || user === null ? '—' : String.fromCharCode(65 + user)} • Correct: ${String.fromCharCode(65 + correct)}`;
+                                            block.appendChild(foot);
 
-    resultsList.appendChild(block);
-  });
+                                            resultsList.appendChild(block);
+                                        });
 
-  scoreVal.textContent = score;
-  scoreTotal.textContent = topic.questions.length;
-}
+                                        scoreVal.textContent = score;
+                                        scoreTotal.textContent = topic.questions.length;
+                                    }
 
 /* Back & Retry */
 backBtn.addEventListener('click', () => {
-  state.topicIndex = null;
-  state.current = 0;
-  state.answers = {};
-  state.showResults = false;
-  resultsArea.classList.add('hidden');
-  quizArea.classList.add('hidden');
-  topicsEl.classList.remove('hidden');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-retryBtn.addEventListener('click', () => {
-  state.current = 0;
-  state.answers = {};
-  state.showResults = false;
-  resultsArea.classList.add('hidden');
-  quizArea.classList.remove('hidden');
-  renderQuestion();
-  updateAnsweredCount();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+                                        state.topicIndex = null;
+                                        state.current = 0;
+                                        state.answers = {};
+                                        state.showResults = false;
+                                        resultsArea.classList.add('hidden');
+                                        quizArea.classList.add('hidden');
+                                        topicsEl.classList.remove('hidden');
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    });
+                                retryBtn.addEventListener('click', () => {
+                                    state.current = 0;
+                                    state.answers = {};
+                                    state.showResults = false;
+                                    resultsArea.classList.add('hidden');
+                                    quizArea.classList.remove('hidden');
+                                    renderQuestion();
+                                    updateAnsweredCount();
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                });
 
 /* Initialize */
-(function init(){
-  renderTopics();
-})();
-</script>
+(function init() {
+                                    renderTopics();
+                                })();
+    </script>
 </body>
+
 </html>
