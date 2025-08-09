@@ -1,5 +1,5 @@
 // Example data for demonstration
-        // ...existing code...
+// ...existing code...
 const QUIZ_DATA = [
     {
         topic: 'Islamiyat',
@@ -105,181 +105,181 @@ const QUIZ_DATA = [
     }
 ];
 
-        let state = {
-            topicIndex: null,
-            current: 0,
-            answers: {} // qid -> selected index
-        };
+let state = {
+    topicIndex: null,
+    current: 0,
+    answers: {} // qid -> selected index
+};
 
-        // DOM refs
-        const startScreen = document.getElementById('start-screen');
-        const startButton = document.getElementById('start-button');
+// DOM refs
+const startScreen = document.getElementById('start-screen');
+const startButton = document.getElementById('start-button');
 
-        const topicsScreen = document.getElementById('topics-screen');
-        const topicsContainer = document.getElementById('topics');
-        const backToStart = document.getElementById('back-to-start');
+const topicsScreen = document.getElementById('topics-screen');
+const topicsContainer = document.getElementById('topics');
+const backToStart = document.getElementById('back-to-start');
 
-        const quizScreen = document.getElementById('quiz-screen');
-        const topicTitle = document.getElementById('topic-title');
-        const qIndexEl = document.getElementById('q-index');
-        const qTotalEl = document.getElementById('q-total');
-        const qTotalEl2 = document.getElementById('q-total-2');
-        const questionText = document.getElementById('question-text');
-        const optionsList = document.getElementById('options-list');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const clearBtn = document.getElementById('clear-btn');
-        const answeredCountEl = document.getElementById('answered-count');
-        const quitTopics = document.getElementById('quit-topics');
+const quizScreen = document.getElementById('quiz-screen');
+const topicTitle = document.getElementById('topic-title');
+const qIndexEl = document.getElementById('q-index');
+const qTotalEl = document.getElementById('q-total');
+const qTotalEl2 = document.getElementById('q-total-2');
+const questionText = document.getElementById('question-text');
+const optionsList = document.getElementById('options-list');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const clearBtn = document.getElementById('clear-btn');
+const answeredCountEl = document.getElementById('answered-count');
+const quitTopics = document.getElementById('quit-topics');
 
-        const resultsScreen = document.getElementById('results-screen');
-        const resultsTopic = document.getElementById('results-topic');
-        const scoreVal = document.getElementById('score-val');
-        const scoreTotal = document.getElementById('score-total');
-        const resultsList = document.getElementById('results-list');
-        const resultsBack = document.getElementById('results-back-topics');
-        const retryBtn = document.getElementById('retry-topic');
+const resultsScreen = document.getElementById('results-screen');
+const resultsTopic = document.getElementById('results-topic');
+const scoreVal = document.getElementById('score-val');
+const scoreTotal = document.getElementById('score-total');
+const resultsList = document.getElementById('results-list');
+const resultsBack = document.getElementById('results-back-topics');
+const retryBtn = document.getElementById('retry-topic');
 
-        function showStart() {
-            startScreen.classList.remove('hidden');
-            topicsScreen.classList.add('hidden');
-            quizScreen.classList.add('hidden');
-            resultsScreen.classList.add('hidden');
+function showStart() {
+    startScreen.classList.remove('hidden');
+    topicsScreen.classList.add('hidden');
+    quizScreen.classList.add('hidden');
+    resultsScreen.classList.add('hidden');
+}
+function showTopics() {
+    startScreen.classList.add('hidden');
+    topicsScreen.classList.remove('hidden');
+    quizScreen.classList.add('hidden');
+    resultsScreen.classList.add('hidden');
+}
+function showQuiz() {
+    startScreen.classList.add('hidden');
+    topicsScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+    resultsScreen.classList.add('hidden');
+}
+function showResultsScreen() {
+    startScreen.classList.add('hidden');
+    topicsScreen.classList.add('hidden');
+    quizScreen.classList.add('hidden');
+    resultsScreen.classList.remove('hidden');
+}
+
+function renderTopics() {
+    topicsContainer.innerHTML = '';
+    QUIZ_DATA.forEach((t, i) => {
+        const el = document.createElement('button');
+        el.className = 'p-4 border rounded-lg text-left hover:shadow-md';
+        el.innerHTML = `<div class="text-lg font-semibold">${t.topic}</div><div class="text-sm text-gray-600">${t.questions.length} questions</div>`;
+        el.addEventListener('click', () => startTopic(i));
+        topicsContainer.appendChild(el);
+    });
+}
+
+function startTopic(i) {
+    state.topicIndex = i;
+    state.current = 0;
+    state.answers = {};
+    showQuiz();
+    renderQuestion();
+    updateAnsweredCount();
+}
+
+function renderQuestion() {
+    const topic = QUIZ_DATA[state.topicIndex];
+    if (!topic) return;
+    const q = topic.questions[state.current];
+    if (!q) return;
+
+    topicTitle.textContent = topic.topic;
+    questionText.textContent = q.q;
+    qIndexEl.textContent = state.current + 1;
+    qTotalEl.textContent = topic.questions.length;
+    qTotalEl2.textContent = topic.questions.length;
+
+    optionsList.innerHTML = '';
+    q.options.forEach((opt, idx) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'p-3 rounded-lg border w-full text-left';
+        if (state.answers[q.id] === idx) {
+            btn.classList.add('bg-black', 'text-white', 'option-selected');
         }
-        function showTopics() {
-            startScreen.classList.add('hidden');
-            topicsScreen.classList.remove('hidden');
-            quizScreen.classList.add('hidden');
-            resultsScreen.classList.add('hidden');
-        }
-        function showQuiz() {
-            startScreen.classList.add('hidden');
-            topicsScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            resultsScreen.classList.add('hidden');
-        }
-        function showResultsScreen() {
-            startScreen.classList.add('hidden');
-            topicsScreen.classList.add('hidden');
-            quizScreen.classList.add('hidden');
-            resultsScreen.classList.remove('hidden');
-        }
-
-        function renderTopics() {
-            topicsContainer.innerHTML = '';
-            QUIZ_DATA.forEach((t, i) => {
-                const el = document.createElement('button');
-                el.className = 'p-4 border rounded-lg text-left hover:shadow-md';
-                el.innerHTML = `<div class="text-lg font-semibold">${t.topic}</div><div class="text-sm text-gray-600">${t.questions.length} questions</div>`;
-                el.addEventListener('click', () => startTopic(i));
-                topicsContainer.appendChild(el);
-            });
-        }
-
-        function startTopic(i) {
-            state.topicIndex = i;
-            state.current = 0;
-            state.answers = {};
-            showQuiz();
-            renderQuestion();
-            updateAnsweredCount();
-        }
-
-        function renderQuestion() {
-            const topic = QUIZ_DATA[state.topicIndex];
-            if (!topic) return;
-            const q = topic.questions[state.current];
-            if (!q) return;
-
-            topicTitle.textContent = topic.topic;
-            questionText.textContent = q.q;
-            qIndexEl.textContent = state.current + 1;
-            qTotalEl.textContent = topic.questions.length;
-            qTotalEl2.textContent = topic.questions.length;
-
-            optionsList.innerHTML = '';
-            q.options.forEach((opt, idx) => {
-                const li = document.createElement('li');
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'p-3 rounded-lg border w-full text-left';
-                if (state.answers[q.id] === idx) {
-                    btn.classList.add('bg-black', 'text-white', 'option-selected');
-                }
-                btn.innerHTML = `<div class="font-mono w-6 inline-block mr-3">${String.fromCharCode(65 + idx)}</div><span>${opt}</span>`;
-                btn.addEventListener('click', () => {
-                    state.answers[q.id] = idx;
-                    renderQuestion();
-                    updateAnsweredCount();
-                });
-                li.appendChild(btn);
-                optionsList.appendChild(li);
-            });
-
-            prevBtn.disabled = state.current === 0;
-            const answered = state.answers[q.id] !== undefined;
-            nextBtn.disabled = !answered;
-            nextBtn.textContent = state.current < topic.questions.length - 1 ? 'Next' : 'Finish';
-        }
-
-        function updateAnsweredCount() {
-            const topic = QUIZ_DATA[state.topicIndex];
-            if (!topic) { answeredCountEl.textContent = '0'; return; }
-            const count = Object.keys(state.answers).length;
-            answeredCountEl.textContent = count;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (state.current > 0) {
-                state.current--;
-                renderQuestion();
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            const topic = QUIZ_DATA[state.topicIndex];
-            if (!topic) return;
-            if (state.current < topic.questions.length - 1) {
-                state.current++;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                renderQuestion(); startButton.addEventListener('click', () => {
-                    renderTopics();
-                    showTopics();
-                });
-            } else {
-                showResults();
-            }
-        });
-
-        clearBtn.addEventListener('click', () => {
-            const topic = QUIZ_DATA[state.topicIndex];
-            if (!topic) return;
-            const qid = topic.questions[state.current].id;
-            delete state.answers[qid];
+        btn.innerHTML = `<div class="font-mono w-6 inline-block mr-3">${String.fromCharCode(65 + idx)}</div><span>${opt}</span>`;
+        btn.addEventListener('click', () => {
+            state.answers[q.id] = idx;
             renderQuestion();
             updateAnsweredCount();
         });
+        li.appendChild(btn);
+        optionsList.appendChild(li);
+    });
 
-        quitTopics.addEventListener('click', () => {
+    prevBtn.disabled = state.current === 0;
+    const answered = state.answers[q.id] !== undefined;
+    nextBtn.disabled = !answered;
+    nextBtn.textContent = state.current < topic.questions.length - 1 ? 'Next' : 'Finish';
+}
+
+function updateAnsweredCount() {
+    const topic = QUIZ_DATA[state.topicIndex];
+    if (!topic) { answeredCountEl.textContent = '0'; return; }
+    const count = Object.keys(state.answers).length;
+    answeredCountEl.textContent = count;
+}
+
+prevBtn.addEventListener('click', () => {
+    if (state.current > 0) {
+        state.current--;
+        renderQuestion();
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    const topic = QUIZ_DATA[state.topicIndex];
+    if (!topic) return;
+    if (state.current < topic.questions.length - 1) {
+        state.current++;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderQuestion(); startButton.addEventListener('click', () => {
             renderTopics();
             showTopics();
         });
+    } else {
+        showResults();
+    }
+});
 
-        function showResults() {
-            const topic = QUIZ_DATA[state.topicIndex];
-            if (!topic) return;
-            showResultsScreen();
-            resultsTopic.textContent = topic.topic;
-            resultsList.innerHTML = '';
-            let score = 0;
+clearBtn.addEventListener('click', () => {
+    const topic = QUIZ_DATA[state.topicIndex];
+    if (!topic) return;
+    const qid = topic.questions[state.current].id;
+    delete state.answers[qid];
+    renderQuestion();
+    updateAnsweredCount();
+});
 
-            topic.questions.forEach((q, idx) => {
-                const user = state.answers[q.id];
-                const correct = q.answer;
-                if (user === correct) score++;
-                const block = document.createElement('li');
-                block.className = 'p-4 border rounded-lg';
-                block.innerHTML = `
+quitTopics.addEventListener('click', () => {
+    renderTopics();
+    showTopics();
+});
+
+function showResults() {
+    const topic = QUIZ_DATA[state.topicIndex];
+    if (!topic) return;
+    showResultsScreen();
+    resultsTopic.textContent = topic.topic;
+    resultsList.innerHTML = '';
+    let score = 0;
+
+    topic.questions.forEach((q, idx) => {
+        const user = state.answers[q.id];
+        const correct = q.answer;
+        if (user === correct) score++;
+        const block = document.createElement('li');
+        block.className = 'p-4 border rounded-lg';
+        block.innerHTML = `
                         <div class="mb-2 font-semibold">${idx + 1}. ${q.q}</div>
                         <div>
                             ${q.options.map((opt, i) => `
@@ -292,28 +292,28 @@ const QUIZ_DATA = [
                             `).join('')}
                         </div>
                     `;
-                resultsList.appendChild(block);
-            });
+        resultsList.appendChild(block);
+    });
 
-            scoreVal.textContent = score;
-            scoreTotal.textContent = topic.questions.length;
-        }
+    scoreVal.textContent = score;
+    scoreTotal.textContent = topic.questions.length;
+}
 
-        resultsBack.addEventListener('click', () => {
-            renderTopics();
-            showTopics();
-        });
-        retryBtn.addEventListener('click', () => {
-            startTopic(state.topicIndex);
-        });
+resultsBack.addEventListener('click', () => {
+    renderTopics();
+    showTopics();
+});
+retryBtn.addEventListener('click', () => {
+    startTopic(state.topicIndex);
+});
 
-        startButton.addEventListener('click', () => {
-            renderTopics();
-            showTopics();
-        });
-        backToStart.addEventListener('click', () => {
-            showStart();
-        });
+startButton.addEventListener('click', () => {
+    renderTopics();
+    showTopics();
+});
+backToStart.addEventListener('click', () => {
+    showStart();
+});
 
-        // Initialize
-        showStart();
+// Initialize
+showStart();
