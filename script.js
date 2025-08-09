@@ -12,7 +12,7 @@ const QUIZ_DATA = [
             { id: 'is5', q: 'The Battle of Uhud was fought in which year of Hijrah?', options: ['2 AH', '3 AH', '4 AH', '5 AH'], answer: 1 },
             { id: 'is6', q: 'Who was the first Muazzin of Islam?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
             { id: 'is7', q: 'How many times is the name “Muhammad” mentioned in the Quran?', options: ['3', '4', '5', '6'], answer: 1 },
-            { id: 'is8', q: 'What was the original Qibla of Muslims?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 1 },
+            { id: 'is8', q: 'What was the original Qibla of Muslims?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 0 },
             { id: 'is9', q: 'Who was known as “Sword of Allah”?', options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
             { id: 'is10', q: 'In which Surah is Ayat-ul-Kursi found?', options: ['Surah Baqarah', 'Surah Yaseen', 'Surah Al-Imran', 'Surah Nisa'], answer: 0 },
             { id: 'is11', q: 'What does Zakat literally mean?', options: ['Purification', 'Charity', 'Donation', 'Sacrifice'], answer: 0 }
