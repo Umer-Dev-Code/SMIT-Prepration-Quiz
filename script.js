@@ -5,17 +5,17 @@ const QUIZ_DATA = [
         topic: 'Islamiyat',
         id: 'islamiyat',
         questions: [
-            { id: 'is1', q: 'Who compiled the Holy Quran in book form?', options: ['Hazrat Abu Bakr (R.A)', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
-            { id: 'is2', q: 'How many Makki Surahs are in the Quran?', options: ['86', '87', '85', '90'], answer: 0 },
-            { id: 'is3', q: 'What is the first month of the Islamic calendar?', options: ['Muharram', 'Safar', 'Rabi-ul-Awwal', 'Ramadan'], answer: 0 },
-            { id: 'is4', q: 'How many total Rukus are in the Quran?', options: ['558', '540', '555', '570'], answer: 2 },
-            { id: 'is5', q: 'The Battle of Uhud was fought in which year of Hijrah?', options: ['2 AH', '3 AH', '4 AH', '5 AH'], answer: 1 },
-            { id: 'is6', q: 'Who was the first Muazzin of Islam?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
-            { id: 'is7', q: 'How many times is the name “Muhammad” mentioned in the Quran?', options: ['3', '4', '5', '6'], answer: 1 },
-            { id: 'is8', q: 'What was the original Qibla of Muslims?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 0 },
-            { id: 'is9', q: 'Who was known as “Sword of Allah”?', options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
-            { id: 'is10', q: 'In which Surah is Ayat-ul-Kursi found?', options: ['Surah Baqarah', 'Surah Yaseen', 'Surah Al-Imran', 'Surah Nisa'], answer: 0 },
-            { id: 'is11', q: 'What does Zakat literally mean?', options: ['Purification', 'Charity', 'Donation', 'Sacrifice'], answer: 0 }
+            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
+            { id: 'is2', q: 'Quran mein kitni Makki Suratein hain?', options: ['86', '87', '85', '90'], answer: 0 },
+            { id: 'is3', q: 'Islami calendar ka pehla mahina konsa hai?', options: ['Muharram', 'Safar', 'Rabi-ul-Awwal', 'Ramadan'], answer: 0 },
+            { id: 'is4', q: 'Quran mein kul kitne Rukus hain?', options: ['558', '540', '555', '570'], answer: 2 },
+            { id: 'is5', q: 'Ghazwa-e-Uhud kis hijri saal mein hua?', options: ['2 AH', '3 AH', '4 AH', '5 AH'], answer: 1 },
+            { id: 'is6', q: 'slam ka pehla Muazzin kaun tha?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
+            { id: 'is7', q: 'Quran mein “Muhammad” ka naam kitni dafa aaya hai?', options: ['3', '4', '5', '6'], answer: 1 },
+            { id: 'is8', q: 'Musalmanon ka pehla Qibla kya tha?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 0 },
+            { id: 'is9', q: 'Kis sahabi ko “Allah ka Talwar” kaha jata hai?' , :options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
+            { id: 'is10', q: 'Ayat-ul-Kursi kis Surah mein hai?', options: ['Surah Baqarah', 'Surah Yaseen', 'Surah Al-Imran', 'Surah Nisa'], answer: 0 },
+            { id: 'is11', q: 'Zakat ka literal matlab kya hai?', options: ['Purification', 'Charity', 'Donation', 'Sacrifice'], answer: 0 }
         ]
     },
     {
