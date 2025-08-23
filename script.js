@@ -1,20 +1,17 @@
-// Example data for demonstration
-// ...existing code...
 const QUIZ_DATA = [
     {
         topic: 'Islamiyat',
         id: 'islamiyat',
         questions: [
-            // Fix 1: Added 'options' key
-            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', options: ['Hazrat Abu Bakr (R.A)', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
+            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', options: ['Hazrat Abu Bakr (R.A)', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 1 },
             { id: 'is2', q: 'Quran mein kitni Makki Suratein hain?', options: ['86', '87', '85', '90'], answer: 0 },
             { id: 'is3', q: 'Islami calendar ka pehla mahina konsa hai?', options: ['Muharram', 'Safar', 'Rabi-ul-Awwal', 'Ramadan'], answer: 0 },
-            { id: 'is4', q: 'Quran mein kul kitne Rukus hain?', options: ['558', '540', '555', '570'], answer: 2 },
+            { id: 'is4', q: 'Quran mein kul kitne Rukus hain?', options: ['558', '540', '555', '570'], answer: 0 },
             { id: 'is5', q: 'Ghazwa-e-Uhud kis hijri saal mein hua?', options: ['2 AH', '3 AH', '4 AH', '5 AH'], answer: 1 },
-            { id: 'is6', q: 'slam ka pehla Muazzin kaun tha?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
-            { id: 'is7', q: 'Quran mein “Muhammad” ka naam kitni dafa aaya hai?', options: ['3', '4', '5', '6'], answer: 1 },
-            { id: 'is8', q: 'Musalmanon ka pehla Qibla kya tha?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 0 },
-            { id: 'is9', q: 'Kis sahabi ko “Allah ka Talwar” kaha jata hai?' , options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
+            { id: 'is6', q: 'Islam ka pehla Muazzin kaun tha?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
+            { id: 'is7', q: 'Quran mein “Muhammad” ka naam kitni dafa aaya hai?', options: ['3', '4', '5', '6'], answer: 2 },
+            { id: 'is8', q: 'Musalmanon ka pehla Qibla kya tha?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 1 },
+            { id: 'is9', q: 'Kis sahabi ko “Allah ka Talwar” kaha jata hai?', options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
             { id: 'is10', q: 'Ayat-ul-Kursi kis Surah mein hai?', options: ['Surah Baqarah', 'Surah Yaseen', 'Surah Al-Imran', 'Surah Nisa'], answer: 0 },
             { id: 'is11', q: 'Zakat ka literal matlab kya hai?', options: ['Purification', 'Charity', 'Donation', 'Sacrifice'], answer: 0 }
         ]
@@ -58,12 +55,12 @@ const QUIZ_DATA = [
         id: 'iq',
         questions: [
             { id: 'iq1', q: 'What comes next? 2, 4, 8, 16, ?', options: ['18', '24', '32', '64'], answer: 2 },
-            { id: 'iq2', q: 'If ALL = 25, CAT = 24, then DOG = ?', options: ['26', '23', '22', '21'], answer: 1 },
+            { id: 'iq2', q: 'If ALL = 25, CAT = 24, then DOG = ?', options: ['26', '23', '22', '21'], answer: 0 },
             { id: 'iq3', q: 'Which is odd one out: Apple, Mango, Carrot, Banana?', options: ['Apple', 'Mango', 'Carrot', 'Banana'], answer: 2 },
             { id: 'iq4', q: 'If 5x = 20, x = ?', options: ['2', '3', '4', '5'], answer: 2 },
             { id: 'iq5', q: 'Mirror image of 27 is?', options: ['72', '27', 'None', 'Both'], answer: 0 },
             { id: 'iq6', q: 'Which number is missing? 1, 4, 9, 16, ?', options: ['20', '24', '25', '36'], answer: 2 },
-            { id: 'iq7', q: 'Find the next: A, C, E, G, ?', options: ['H', 'I', 'J', 'K'], answer: 2 },
+            { id: 'iq7', q: 'Find the next: A, C, E, G, ?', options: ['H', 'I', 'J', 'K'], answer: 1 },
             { id: 'iq8', q: 'Which is heavier: 1kg cotton or 1kg iron?', options: ['Cotton', 'Iron', 'Both same', 'None'], answer: 2 },
             { id: 'iq9', q: 'What is 15% of 200?', options: ['20', '25', '30', '35'], answer: 2 },
             { id: 'iq10', q: 'Which is smallest: 0.2, 0.02, 0.222, 0.12?', options: ['0.2', '0.02', '0.222', '0.12'], answer: 1 },
@@ -106,20 +103,14 @@ const QUIZ_DATA = [
     }
 ];
 
-let state = {
-    topicIndex: null,
-    current: 0,
-    answers: {} // qid -> selected index
-};
+let state = { topicIndex: null, current: 0, answers: {} };
 
-// DOM refs
+// DOM Refs
 const startScreen = document.getElementById('start-screen');
 const startButton = document.getElementById('start-button');
-
 const topicsScreen = document.getElementById('topics-screen');
 const topicsContainer = document.getElementById('topics');
 const backToStart = document.getElementById('back-to-start');
-
 const quizScreen = document.getElementById('quiz-screen');
 const topicTitle = document.getElementById('topic-title');
 const qIndexEl = document.getElementById('q-index');
@@ -132,7 +123,6 @@ const nextBtn = document.getElementById('next-btn');
 const clearBtn = document.getElementById('clear-btn');
 const answeredCountEl = document.getElementById('answered-count');
 const quitTopics = document.getElementById('quit-topics');
-
 const resultsScreen = document.getElementById('results-screen');
 const resultsTopic = document.getElementById('results-topic');
 const scoreVal = document.getElementById('score-val');
@@ -141,31 +131,13 @@ const resultsList = document.getElementById('results-list');
 const resultsBack = document.getElementById('results-back-topics');
 const retryBtn = document.getElementById('retry-topic');
 
-function showStart() {
-    startScreen.classList.remove('hidden');
-    topicsScreen.classList.add('hidden');
-    quizScreen.classList.add('hidden');
-    resultsScreen.classList.add('hidden');
-}
-function showTopics() {
-    startScreen.classList.add('hidden');
-    topicsScreen.classList.remove('hidden');
-    quizScreen.classList.add('hidden');
-    resultsScreen.classList.add('hidden');
-}
-function showQuiz() {
-    startScreen.classList.add('hidden');
-    topicsScreen.classList.add('hidden');
-    quizScreen.classList.remove('hidden');
-    resultsScreen.classList.add('hidden');
-}
-function showResultsScreen() {
-    startScreen.classList.add('hidden');
-    topicsScreen.classList.add('hidden');
-    quizScreen.classList.add('hidden');
-    resultsScreen.classList.remove('hidden');
-}
+// Screens
+function showStart() { startScreen.classList.remove('hidden'); topicsScreen.classList.add('hidden'); quizScreen.classList.add('hidden'); resultsScreen.classList.add('hidden'); }
+function showTopics() { startScreen.classList.add('hidden'); topicsScreen.classList.remove('hidden'); quizScreen.classList.add('hidden'); resultsScreen.classList.add('hidden'); }
+function showQuiz() { startScreen.classList.add('hidden'); topicsScreen.classList.add('hidden'); quizScreen.classList.remove('hidden'); resultsScreen.classList.add('hidden'); }
+function showResultsScreen() { startScreen.classList.add('hidden'); topicsScreen.classList.add('hidden'); quizScreen.classList.add('hidden'); resultsScreen.classList.remove('hidden'); }
 
+// Topics render
 function renderTopics() {
     topicsContainer.innerHTML = '';
     QUIZ_DATA.forEach((t, i) => {
@@ -177,6 +149,7 @@ function renderTopics() {
     });
 }
 
+// Start quiz
 function startTopic(i) {
     state.topicIndex = i;
     state.current = 0;
@@ -186,6 +159,7 @@ function startTopic(i) {
     updateAnsweredCount();
 }
 
+// Render Qs
 function renderQuestion() {
     const topic = QUIZ_DATA[state.topicIndex];
     if (!topic) return;
@@ -203,10 +177,8 @@ function renderQuestion() {
         const li = document.createElement('li');
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'p-3 rounded-lg border w-full text-left';
-        if (state.answers[q.id] === idx) {
-            btn.classList.add('bg-black', 'text-white', 'option-selected');
-        }
+        btn.className = 'p-3 rounded-lg border-2 border-black w-full text-left';
+        if (state.answers[q.id] === idx) btn.classList.add('bg-black', 'text-white');
         btn.innerHTML = `<div class="font-mono w-6 inline-block mr-3">${String.fromCharCode(65 + idx)}</div><span>${opt}</span>`;
         btn.addEventListener('click', () => {
             state.answers[q.id] = idx;
@@ -230,13 +202,10 @@ function updateAnsweredCount() {
     answeredCountEl.textContent = count;
 }
 
+// Navigation
 prevBtn.addEventListener('click', () => {
-    if (state.current > 0) {
-        state.current--;
-        renderQuestion();
-    }
+    if (state.current > 0) { state.current--; renderQuestion(); }
 });
-
 nextBtn.addEventListener('click', () => {
     const topic = QUIZ_DATA[state.topicIndex];
     if (!topic) return;
@@ -244,16 +213,9 @@ nextBtn.addEventListener('click', () => {
         state.current++;
         window.scrollTo({ top: 0, behavior: 'smooth' });
         renderQuestion();
-    } else {
-        showResults();
-    }
+    } else showResults();
 });
-// Fix 3: Moved this event listener out of the nextBtn listener
-startButton.addEventListener('click', () => {
-    renderTopics();
-    showTopics();
-});
-
+startButton.addEventListener('click', () => { renderTopics(); showTopics(); });
 clearBtn.addEventListener('click', () => {
     const topic = QUIZ_DATA[state.topicIndex];
     if (!topic) return;
@@ -262,12 +224,9 @@ clearBtn.addEventListener('click', () => {
     renderQuestion();
     updateAnsweredCount();
 });
+quitTopics.addEventListener('click', () => { renderTopics(); showTopics(); });
 
-quitTopics.addEventListener('click', () => {
-    renderTopics();
-    showTopics();
-});
-
+// Results
 function showResults() {
     const topic = QUIZ_DATA[state.topicIndex];
     if (!topic) return;
@@ -283,40 +242,27 @@ function showResults() {
         const block = document.createElement('li');
         block.className = 'p-4 border rounded-lg';
         block.innerHTML = `
-                        <div class="mb-2 font-semibold">${idx + 1}. ${q.q}</div>
-                        <div>
-                            ${q.options.map((opt, i) => `
-                                <div class="p-2 rounded ${i === correct ? 'correct' : ''} ${i === user && i !== correct ? 'incorrect' : ''}">
-                                    <span class="font-mono w-6 inline-block mr-2">${String.fromCharCode(65 + i)}</span>
-                                    <span>${opt}</span>
-                                    ${i === correct ? '<span class="ml-2 text-green-600 font-bold">(Correct)</span>' : ''}
-                                    ${i === user && i !== correct ? '<span class="ml-2 text-red-600 font-bold">(Your answer)</span>' : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
+            <div class="mb-2 font-semibold">${idx + 1}. ${q.q}</div>
+            <div>
+                ${q.options.map((opt, i) => `
+                    <div class="p-2 rounded ${i === correct ? 'bg-green-100 text-green-800' : ''} ${i === user && i !== correct ? 'bg-red-100 text-red-800' : ''}">
+                        <span class="font-mono w-6 inline-block mr-2">${String.fromCharCode(65 + i)}</span>
+                        <span>${opt}</span>
+                        ${i === correct ? '<span class="ml-2 font-bold">(Correct)</span>' : ''}
+                        ${i === user && i !== correct ? '<span class="ml-2 font-bold">(Your answer)</span>' : ''}
+                    </div>
+                `).join('')}
+            </div>
+        `;
         resultsList.appendChild(block);
     });
 
     scoreVal.textContent = score;
     scoreTotal.textContent = topic.questions.length;
 }
+resultsBack.addEventListener('click', () => { renderTopics(); showTopics(); });
+retryBtn.addEventListener('click', () => { startTopic(state.topicIndex); });
+backToStart.addEventListener('click', () => { showStart(); });
 
-resultsBack.addEventListener('click', () => {
-    renderTopics();
-    showTopics();
-});
-retryBtn.addEventListener('click', () => {
-    startTopic(state.topicIndex);
-});
-
-startButton.addEventListener('click', () => {
-    renderTopics();
-    showTopics();
-});
-backToStart.addEventListener('click', () => {
-    showStart();
-});
-
-// Initialize
+// Init
 showStart();
