@@ -6,7 +6,7 @@ const QUIZ_DATA = [
         id: 'islamiyat',
         questions: [
             // Fix 1: Added 'options' key
-            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', options: ['Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
+            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', options: ['Hazrat Abu Bakr (R.A)', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
             { id: 'is2', q: 'Quran mein kitni Makki Suratein hain?', options: ['86', '87', '85', '90'], answer: 0 },
             { id: 'is3', q: 'Islami calendar ka pehla mahina konsa hai?', options: ['Muharram', 'Safar', 'Rabi-ul-Awwal', 'Ramadan'], answer: 0 },
             { id: 'is4', q: 'Quran mein kul kitne Rukus hain?', options: ['558', '540', '555', '570'], answer: 2 },
