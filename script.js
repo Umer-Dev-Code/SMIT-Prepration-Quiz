@@ -5,7 +5,8 @@ const QUIZ_DATA = [
         topic: 'Islamiyat',
         id: 'islamiyat',
         questions: [
-            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', 'Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
+            // Fix 1: Added 'options' key
+            { id: 'is1', q: 'Kis ne Quran Pak ko kitaabi shakl mein jama kiya?', options: ['Hazrat Uthman (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Umar (R.A)'], answer: 0 },
             { id: 'is2', q: 'Quran mein kitni Makki Suratein hain?', options: ['86', '87', '85', '90'], answer: 0 },
             { id: 'is3', q: 'Islami calendar ka pehla mahina konsa hai?', options: ['Muharram', 'Safar', 'Rabi-ul-Awwal', 'Ramadan'], answer: 0 },
             { id: 'is4', q: 'Quran mein kul kitne Rukus hain?', options: ['558', '540', '555', '570'], answer: 2 },
@@ -13,7 +14,7 @@ const QUIZ_DATA = [
             { id: 'is6', q: 'slam ka pehla Muazzin kaun tha?', options: ['Hazrat Bilal (R.A)', 'Hazrat Salman (R.A)', 'Hazrat Abu Huraira (R.A)', 'Hazrat Anas (R.A)'], answer: 0 },
             { id: 'is7', q: 'Quran mein “Muhammad” ka naam kitni dafa aaya hai?', options: ['3', '4', '5', '6'], answer: 1 },
             { id: 'is8', q: 'Musalmanon ka pehla Qibla kya tha?', options: ['Kaaba', 'Bait-ul-Muqaddas', 'Madina', 'Mount Arafat'], answer: 0 },
-            { id: 'is9', q: 'Kis sahabi ko “Allah ka Talwar” kaha jata hai?' , :options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
+            { id: 'is9', q: 'Kis sahabi ko “Allah ka Talwar” kaha jata hai?' , options: ['Hazrat Umar (R.A)', 'Hazrat Khalid bin Waleed (R.A)', 'Hazrat Ali (R.A)', 'Hazrat Hamza (R.A)'], answer: 1 },
             { id: 'is10', q: 'Ayat-ul-Kursi kis Surah mein hai?', options: ['Surah Baqarah', 'Surah Yaseen', 'Surah Al-Imran', 'Surah Nisa'], answer: 0 },
             { id: 'is11', q: 'Zakat ka literal matlab kya hai?', options: ['Purification', 'Charity', 'Donation', 'Sacrifice'], answer: 0 }
         ]
@@ -242,13 +243,15 @@ nextBtn.addEventListener('click', () => {
     if (state.current < topic.questions.length - 1) {
         state.current++;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        renderQuestion(); startButton.addEventListener('click', () => {
-            renderTopics();
-            showTopics();
-        });
+        renderQuestion();
     } else {
         showResults();
     }
+});
+// Fix 3: Moved this event listener out of the nextBtn listener
+startButton.addEventListener('click', () => {
+    renderTopics();
+    showTopics();
 });
 
 clearBtn.addEventListener('click', () => {
