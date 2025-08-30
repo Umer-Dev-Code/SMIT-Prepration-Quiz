@@ -119,7 +119,7 @@ const QUIZ_DATA = [
             { id: 'iq21', q: 'A is older than B, and B is older than C. Who is youngest?', options: ['A', 'B', 'C', 'Cannot tell'], answer: 2 },
             { id: 'iq22', q: 'If 2 cars take 4 hours to travel 80 km, how long for 4 cars to travel 80 km?', options: ['4 hours', '2 hours', '3 hours', '5 hours'], answer: 0 },
             { id: 'iq23', q: 'Which is different: Red, Blue, Green, Square?', options: ['Red', 'Blue', 'Green', 'Square'], answer: 3 },
-            { id: 'iq24', q: 'What is the next number: 1, 4, 7, 10, ?', options: ['12', '13', '14', '15'], answer: 0 },
+            { id: 'iq24', q: 'What is the next number: 1, 4, 7, 10, ?', options: ['12', '13', '14', '15'], answer: 1 },
             { id: 'iq25', q: 'If a bag has 3 red and 2 blue balls, what is the probability of picking a blue ball?', options: ['2/5', '3/5', '1/2', '1/5'], answer: 0 }
         ]
     },
